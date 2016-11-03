@@ -2,8 +2,20 @@ Vagrant.configure("2") do |config|
   config.vm.box = "debian/jessie64"
   config.vm.network "forwarded_port", guest: 5432, host: 5432
   config.vm.provision "shell", inline: <<-SHELL
+    echo "Updating system"
     apt-get update
     apt-get dist-upgrade -y
-    apt-get install -y postgresql-client postgresql
+
+    echo "Installing postgres"
+    apt-get install -y postgresql-client-9.4 postgresql-9.4
+
+    echo "Configuring and restarting PostgreSQL"
+    echo 'listen_addresses = '"'"'*'"'" >> /etc/postgresql/9.4/main/postgresql.conf
+    echo 'host    all             all             10.0.2.0/24            md5' >> /etc/postgresql/9.4/main/pg_hba.conf
+    systemctl restart postgresql
+
+    echo "Creating vagrant user and database"
+    echo "CREATE ROLE vagrant CREATEDB CREATEROLE CREATEUSER LOGIN UNENCRYPTED PASSWORD 'vagrant'" | sudo -u postgres psql -a -f -
+    echo "CREATE DATABASE vagrant OWNER vagrant" | sudo -u postgres psql -a -f -
   SHELL
 end
