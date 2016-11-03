@@ -3,7 +3,7 @@
 set -e
 
 cd $1
-# vagrant up
+vagrant up
 cd ..
 
 ID=$(cat basebox/.vagrant/machines/default/virtualbox/id)
