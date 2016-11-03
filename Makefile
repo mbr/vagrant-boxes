@@ -9,7 +9,7 @@ all: $(BOXES:=.box)
 	cp $(basename $@)/.vagrant/machines/default/virtualbox/id $@
 
 %.box: %.id
-	vagrant package --base $(shell cat $<) --output $@
+	vagrant package --base $(shell cat $<) --vagrantfile $(basename $@)/Vagrantfile.boxed --output $@
 
 clean:
 	rm -f $(BOXES:=.box) $(BOXES:=.id)
