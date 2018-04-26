@@ -7,11 +7,11 @@ Vagrant.configure("2") do |config|
     apt-get dist-upgrade -y
 
     echo "Installing postgres"
-    apt-get install -y postgresql-client-9.4 postgresql-9.4
+    apt-get install -y postgresql-client-9.5 postgresql-9.5
 
     echo "Configuring and restarting PostgreSQL"
-    echo 'listen_addresses = '"'"'*'"'" >> /etc/postgresql/9.4/main/postgresql.conf
-    echo 'host    all             all             10.0.2.0/24            md5' >> /etc/postgresql/9.4/main/pg_hba.conf
+    echo 'listen_addresses = '"'"'*'"'" >> /etc/postgresql/9.5/main/postgresql.conf
+    echo 'host    all             all             10.0.2.0/24            md5' >> /etc/postgresql/9.5/main/pg_hba.conf
     systemctl restart postgresql
 
     echo "Creating vagrant user and database"
