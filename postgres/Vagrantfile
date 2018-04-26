@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
     apt-get dist-upgrade -y
 
     echo "Installing postgres"
-    apt-get install -y postgresql-client-9.5 postgresql-9.5
+    apt-get install -y psmisc postgresql-client-9.5 postgresql-9.5
 
     echo "Configuring and restarting PostgreSQL"
     echo 'listen_addresses = '"'"'*'"'" >> /etc/postgresql/9.5/main/postgresql.conf
